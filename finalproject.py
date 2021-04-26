@@ -7,9 +7,8 @@ engine = create_engine('sqlite:///restaurant.db',
                        connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
-dbsession = sessionmaker(bind = engine)
+dbsession = sessionmaker(bind=engine)
 session = dbsession()
-
 
 
 app = Flask(__name__)
@@ -19,11 +18,11 @@ app = Flask(__name__)
 @app.route('/restaurant/')
 def showRestaurants():
     # return "Restaurants to be displayed here"
-    items = session.query(Restaurant).all()
-    return render_template('restaurants.html',items = items)
+    restaurant = session.query(Restaurant).all()
+    return render_template('restaurants.html', restaurant=restaurant)
 
 
-@app.route('/restaurant/new', methods = ['GET', 'POST'])
+@app.route('/restaurant/new', methods=['GET', 'POST'])
 def newRestaurant():
     # return "Add new Restaurant here"
     return render_template('newRestaurant.html')
@@ -31,12 +30,14 @@ def newRestaurant():
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
-    return "Edit Restaurant here"
+    # return "Edit Restaurant here"
+    return render_template('editRestaurant.html')
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
-    return "Delete Restaurant here"
+    # return "Delete Restaurant here"
+    return render_template('deleteRestaurant.html')
 
 
 @app.route('/restaurant/<int:restaurant_id>/')
