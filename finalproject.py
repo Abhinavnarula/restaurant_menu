@@ -31,13 +31,15 @@ def newRestaurant():
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     # return "Edit Restaurant here"
-    return render_template('editRestaurant.html')
+    editedItem = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    return render_template('editRestaurant.html',restaurant_id = restaurant_id,restaurant_name = editedItem)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     # return "Delete Restaurant here"
-    return render_template('deleteRestaurant.html')
+    deletedItem = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    return render_template('deleteRestaurant.html',restaurant_id = restaurant_id, restaurant_name = deletedItem)
 
 
 @app.route('/restaurant/<int:restaurant_id>/')
