@@ -1,4 +1,16 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from db_setup import Base, MenuItem, Restaurant
+
+engine = create_engine('sqlite:///restaurant.db',
+                       connect_args={'check_same_thread': False})
+Base.metadata.bind = engine
+
+dbsession = sessionmaker(bind = engine)
+session = dbsession()
+
+
 
 app = Flask(__name__)
 
@@ -6,12 +18,15 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/restaurant/')
 def showRestaurants():
-    return "Restaurants to be displayed here"
+    # return "Restaurants to be displayed here"
+    items = session.query(Restaurant).all()
+    return render_template('restaurants.html',items = items)
 
 
 @app.route('/restaurants/new')
 def newRestaurant():
-    return "Add new Restaurant here"
+    # return "Add new Restaurant here"
+    return render_template()
 
 
 @app.route('/restaurants/<int:restaurant_id>/edit')
