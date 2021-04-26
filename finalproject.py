@@ -23,18 +23,18 @@ def showRestaurants():
     return render_template('restaurants.html',items = items)
 
 
-@app.route('/restaurants/new')
+@app.route('/restaurant/new', methods = ['GET', 'POST'])
 def newRestaurant():
     # return "Add new Restaurant here"
-    return render_template()
+    return render_template('newRestaurant.html')
 
 
-@app.route('/restaurants/<int:restaurant_id>/edit')
+@app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     return "Edit Restaurant here"
 
 
-@app.route('/restaurants/<int:restaurant_id>/delete')
+@app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     return "Delete Restaurant here"
 
@@ -45,17 +45,17 @@ def displayMenuItem(restaurant_id):
     return "Menu items to be displayed here"
 
 
-@app.route('/restaurant/<int:restaurant_id>/menu/new')
+@app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
 def addMenuItem(restaurant_id):
     return "New menu item to be added"
 
 
-@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit')
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
     return ("MenuItem number %s to be edited here for %s restaurant" % (menu_id, restaurant_id))
 
 
-@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete')
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
     return ("MenuItem number %s to be deleted here for %s restaurant", menu_id, restaurant_id)
 
