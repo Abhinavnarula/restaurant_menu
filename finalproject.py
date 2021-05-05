@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route('/restaurant/')
-def showRestaurants():
+def showRestaurant():
     # return "Restaurants to be displayed here"
     restaurant = session.query(Restaurant).all()
     return render_template('restaurants.html', restaurant=restaurant)
@@ -31,36 +31,45 @@ def newRestaurant():
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     # return "Edit Restaurant here"
-    editedItem = session.query(Restaurant).filter_by(id = restaurant_id).one()
-    return render_template('editRestaurant.html',restaurant_id = restaurant_id,restaurant_name = editedItem)
+    editedItem = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    return render_template('editRestaurant.html', restaurant_id=restaurant_id, restaurant_name=editedItem)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     # return "Delete Restaurant here"
-    deletedItem = session.query(Restaurant).filter_by(id = restaurant_id).one()
-    return render_template('deleteRestaurant.html',restaurant_id = restaurant_id, restaurant_name = deletedItem)
+    deletedItem = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    return render_template('deleteRestaurant.html', restaurant_id=restaurant_id, restaurant_name=deletedItem)
 
 
 @app.route('/restaurant/<int:restaurant_id>/')
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def displayMenuItem(restaurant_id):
-    return "Menu items to be displayed here"
+    # return "Menu items to be displayed here"
+    Items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id)
+    restaurant_name = session.query(
+        Restaurant).filter_by(id=restaurant_id).one()
+    return render_template('menu.html', items=Items, restaurant=restaurant_name)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
 def addMenuItem(restaurant_id):
-    return "New menu item to be added"
+    # return "New menu item to be added"
+    return render_template('newMenuItem.html',)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
-    return ("MenuItem number %s to be edited here for %s restaurant" % (menu_id, restaurant_id))
+    # return ("MenuItem number %s to be edited here for %s restaurant" % (menu_id, restaurant_id))
+    editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
+    return render_template('editMenuItem.html', restaurant_id=restaurant_id, editedMenuItem=editedItem)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
-    return ("MenuItem number %s to be deleted here for %s restaurant", menu_id, restaurant_id)
+    # return ("MenuItem number %s to be deleted here for %s restaurant", menu_id, restaurant_id)
+    editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
+    return render_template('deleteMenuItem.html', restaurant_id=restaurant_id, editedMenuItem=editedItem)
 
 
 if __name__ == '__main__':
