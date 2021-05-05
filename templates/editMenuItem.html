@@ -11,10 +11,32 @@
 <body>
     <h1>Edit Menu Item</h1>
     <form action="#" method="post">
-        <label for="name">Enter the edited name </label>
-        <input type="text" name="name" id="name" placeholder="{{ editedMenuItem.name }}">
-        <input type="submit" value="Edit">
-        <a href="#">Cancel</a>
+        <div class="name" style="padding: 8px;">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="{{ editedMenuItem.name }}">
+        </div>
+        <div class="description" style="padding: 8px;">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" placeholder="{{ editedMenuItem.description }}">
+        </div>
+        <div class="price" style="padding: 8px;">
+            <label for="price">Price</label>
+            <input type="text" name="price" id="price" placeholder="{{ editedMenuItem.price }}">
+        </div>
+        <div class="course">
+            <p>Course:</p>
+            <input type="radio" id="appetizer" name="course" value="appetizer">
+            <label for="appetizer">Appetizer</label><br><br>
+            <input type="radio" id="entree" name="course" value="entree">
+            <label for="entree">Entree</label><br><br>
+            <input type="radio" id="desert" name="course" value="desert">
+            <label for="desert">Desert</label><br><br>
+            <input type="radio" id="beverage" name="course" value="beverage">
+            <label for="beverage">Beverage</label><br><br>
+        </div>
+        <div class="submit">
+            <input type="submit" value="Create">
+        </div>
     </form>
 </body>
 

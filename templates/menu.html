@@ -15,7 +15,7 @@
     <div class="item">
         <h4>{{ item.name }}</h4>
         <p>{{ item.description }}</p>
-        <p>{{item.price}}</p>
+        <p>{{ item.price }}</p>
         <p>{{ item.course }}</p>
         <div class="edit">
             <a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = item.id) }}">Edit</a>

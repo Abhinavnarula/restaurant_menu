@@ -24,22 +24,39 @@ def showRestaurant():
 
 @app.route('/restaurant/new', methods=['GET', 'POST'])
 def newRestaurant():
-    # return "Add new Restaurant here"
-    return render_template('newRestaurant.html')
+    if(request.method == 'POST'):
+        newItem = Restaurant(name=request.form['name'])
+        session.add(newItem)
+        session.commit()
+        return redirect(url_for('showRestaurant'))
+    else:
+        return render_template('newRestaurant.html')
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     # return "Edit Restaurant here"
     editedItem = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    return render_template('editRestaurant.html', restaurant_id=restaurant_id, restaurant_name=editedItem)
+    if (request.method == 'POST'):
+        if(request.form['name']):
+            editedItem.name = request.form['name']
+        session.add(editedItem)
+        session.commit()
+        return redirect(url_for('showRestaurant'))
+    else:
+        return render_template('editRestaurant.html', restaurant_id=restaurant_id, restaurant_name=editedItem)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     # return "Delete Restaurant here"
     deletedItem = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    return render_template('deleteRestaurant.html', restaurant_id=restaurant_id, restaurant_name=deletedItem)
+    if request.method == 'POST':
+        session.delete(deletedItem)
+        session.commit()
+        return redirect(url_for('showRestaurant'))
+    else:
+        return render_template('deleteRestaurant.html', restaurant_id=restaurant_id, restaurant_name=deletedItem)
 
 
 @app.route('/restaurant/<int:restaurant_id>/')
