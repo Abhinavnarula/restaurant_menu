@@ -89,10 +89,15 @@ def editMenuItem(restaurant_id, menu_id):
     if request.method == 'POST':
         if (request.form['name']):
             editedItem.name = request.form['name']
-        if (request.form['name']):
-            editedItem.name = request.form['name']
-        if (request.form['name']):
-            editedItem.name = request.form['name']
+        if (request.form['description']):
+            editedItem.description = request.form['description']
+        if (request.form['price']):
+            editedItem.price = request.form['price']
+        if (request.form['course']):
+            editedItem.course = request.form['course']
+        session.add(editedItem)
+        session.commit()
+        return redirect(url_for('displayMenuItem',restaurant_id=restaurant_id))
     else:
         return render_template('editMenuItem.html', restaurant_id=restaurant_id, editedMenuItem=editedItem)
 
