@@ -11,6 +11,7 @@
 <body>
     <h1>Menu for {{ restaurant.name }}</h1>
     <h3><a href="{{ url_for('addMenuItem', restaurant_id = restaurant.id) }}">Add new Item</a></h3>
+    <h3><a href="{{ url_for('showRestaurant') }}">Back to Restaurant</a></h3>
     {% for item in items %}
     <div class="item">
         <h4>{{ item.name }}</h4>
